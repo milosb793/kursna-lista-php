@@ -1,7 +1,7 @@
 {
   "name": "milosb793/kursna-lista-php",
   "description": "PHP Wrapper for KursnaLista.info",
-  "type": "composer-plugin",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
