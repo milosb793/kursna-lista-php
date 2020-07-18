@@ -4,7 +4,7 @@ namespace KursnaLista\Utils;
 
 class CurrencyList
 {
-    CONST LIST = [
+    const LIST = [
         "EUR" => [
             "id" => "978",
             "name" => "Evropska unija",

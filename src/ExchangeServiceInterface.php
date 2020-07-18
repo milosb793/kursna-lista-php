@@ -2,4 +2,7 @@
 
 namespace KursnaLista;
 
-interface ExchangeServiceInterface {}
+interface ExchangeServiceInterface
+{
+
+}
