@@ -2,9 +2,9 @@
 
 namespace KursnaLista;
 
-use Exception;
 use KursnaLista\Api\ConversionApi;
 use KursnaLista\Api\CurrencyApi;
+use KursnaLista\Utils\KursnaListaException;
 
 class KursnaListaInfoClient implements ExchangeServiceInterface
 {
@@ -21,10 +21,15 @@ class KursnaListaInfoClient implements ExchangeServiceInterface
         $this->conversion_api = new ConversionApi($this);
     }
 
+    /**
+     * @param $app_id
+     * @return static
+     * @throws KursnaListaException
+     */
     public static function make($app_id)
     {
         if (empty($app_id)) {
-            throw new Exception("Invalid App ID provided");
+            throw new KursnaListaException("Invalid App ID provided");
         }
 
         return new static($app_id);

@@ -2,8 +2,10 @@
 
 namespace KursnaLista\Api;
 
+use InvalidArgumentException;
 use KursnaLista\ExchangeServiceInterface;
 use KursnaLista\KursnaListaInfoClient;
+use KursnaLista\Utils\KursnaListaException;
 use KursnaLista\Utils\Response;
 use KursnaLista\Utils\Util;
 
@@ -17,6 +19,11 @@ class CurrencyApi
         $this->client = $client;
     }
 
+    /**
+     * @param $date
+     * @return string
+     * @throws InvalidArgumentException - In case of invalid date provided
+     */
     private function buildUrl($date)
     {
         $base = KursnaListaInfoClient::API_BASE_URL;
@@ -25,6 +32,11 @@ class CurrencyApi
         return "{$base}/{$this->client->app_id}/kl_na_dan/{$date}/json";
     }
 
+    /**
+     * @param string $date
+     * @return array|mixed
+     * @throws InvalidArgumentException|KursnaListaException
+     */
     public function currencyExchangeList($date = 'now')
     {
         $url = $this->buildUrl($date);
@@ -34,7 +46,6 @@ class CurrencyApi
         }
 
         $data = Response::getRequest($url);
-        $data = Response::response($data);
 
         static::$data[$url] = $data;
 

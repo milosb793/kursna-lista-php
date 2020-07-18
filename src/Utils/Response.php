@@ -22,31 +22,33 @@ class Response
     /**
      * @param $res
      * @return array|mixed
-     * @throws Exception
+     * @throws KursnaListaException
      */
-    public static function response($res)
+    protected static function response($res)
     {
         if (empty($res)) {
-            throw new Exception("Empty response");
+            throw new KursnaListaException("Empty response");
         }
 
         $code = $res['code'];
         $result = $res['result'] ?? [];
 
-        if ($code == 0) {
-            return $result;
+        if ($code != 0) {
+            throw new KursnaListaException(static::MESSAGES[$code]['description']);
         }
 
-        throw new Exception(static::MESSAGES[$code]['description']);
+        return $result;
     }
 
     /**
      * @param $url
      * @return array|mixed
-     * @throws Exception
+     * @throws KursnaListaException
      */
     public static function getRequest($url)
     {
-        return HttpClient::get($url);
+        $res = HttpClient::get($url);
+
+        return self::response($res);
     }
 }
